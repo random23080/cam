@@ -16,8 +16,14 @@
             font-family: 'Poppins', sans-serif;
             animation: backgroundFade 5s infinite alternate ease-in-out;
             color: #fff;
-            overflow: hidden;
+            overflow-y: auto;
             position: relative;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .container {
@@ -25,12 +31,13 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            width: 95%;
+            max-width: 400px;
             margin-top: 20px;
         }
 
         video {
-            width: 90%;
-            max-width: 320px;
+            width: 100%;
             border-radius: 15px;
             border: 10px solid white;
             padding: 5px;
@@ -38,10 +45,10 @@
         }
 
         .compliment {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
-            margin-top: 20px;
-            padding: 15px;
+            margin: 15px 10px;
+            padding: 10px;
             background: rgba(255, 255, 255, 0.3);
             border-radius: 15px;
             color: #ff0033;
@@ -51,24 +58,32 @@
             animation: glow 1.5s infinite alternate, fadeIn 0.8s ease-in-out;
         }
 
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
         button {
             background: #ff6b81;
             color: white;
             border: none;
-            padding: 10px 18px;
+            padding: 8px 14px;
             font-size: 14px;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 8px;
             transition: 0.3s;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         #clickButton {
             background: #ff4d6d;
-            font-size: 22px;
-            padding: 15px 30px;
-            margin-top: 20px;
-            border-radius: 20px;
+            font-size: 20px;
+            padding: 12px 25px;
+            margin-top: 15px;
+            border-radius: 15px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
             animation: pulse 1.5s infinite alternate;
         }
@@ -97,32 +112,31 @@
         </div>
         
         <button id="clickButton" onclick="capturePhoto()">Click 📸</button>
-        <p>*image is only saved to your  gallery</p>
+        <p>*image will be saved only on your device</p>
     </div>
     
     <script>
         const compliments = [
             "You shine brighter than a thousand stars! ✨",
             "Your smile could light up the entire world! 😊",
-            " Your beauty has your own charm",
-            "Every moment with you feels like magic! 💖",
             "You are as unique and beautiful as a dewdrop in the morning sun! 🌿",
             "Your kindness is the most beautiful thing about you! 🌼",
-            "The world is lucky to have someone as wonderful as you! 🌎",
             "Your presence makes everything better! 🌟",
             "You are a breathtaking work of art! 🎨",
             "Your laughter is the most beautiful sound! 🎶",
-            "You make hearts bloom like spring flowers! 🌸",
-            "Your energy is contagious and uplifting! ⚡",
             "You bring happiness wherever you go! 🎉",
             "You radiate positivity and warmth! ☀️",
             "You are a masterpiece, just as you are! 🖌️",
-            "Your confidence is inspiring! 💪",
-            "You deserve all the love and joy in the world! ❤️",
-            "You sparkle brighter than the stars! ✨",
-            "Your heart is pure and full of love! 💞",
-            "Your beauty is beyond words! 😍",
-            "You are a dream come true! 🌠"
+            "You radiate beauty, inside and out! 💖",
+            "Your eyes sparkle like the stars in the night sky! ✨",
+            "You are a walking masterpiece of elegance! 🎭",
+            "Your kindness makes the world a better place! 🌎",
+            "You shine with a light that brightens every room! ☀️",
+            "You are effortlessly charming and beautiful! 🌹",
+            "Your presence is like a warm, comforting hug! 🤗",
+            "You bring a magical glow to everything you touch! ✨",
+            "You are poetry in motion, graceful and unique! 📜",
+            "The universe is lucky to have someone as special as you! 🌠"
         ];
 
         function startCamera() {
