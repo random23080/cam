@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirror</title>
+    <style>
+        @keyframes backgroundFade {
+            0% { background: #ff9a9e; }
+            50% { background: #ff4d6d; }
+            100% { background: #ff9a9e; }
+        }
+
+        body {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            animation: backgroundFade 5s infinite alternate ease-in-out;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        video {
+            width: 90%;
+            max-width: 320px;
+            border-radius: 15px;
+            border: 10px solid white;
+            padding: 5px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+        }
+
+        .compliment {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            color: #ff0033;
+            font-family: 'Cursive', sans-serif;
+            text-shadow: 2px 2px 15px rgba(255, 0, 0, 0.6);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+            animation: glow 1.5s infinite alternate, fadeIn 0.8s ease-in-out;
+        }
+
+        button {
+            background: #ff6b81;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        #clickButton {
+            background: #ff4d6d;
+            font-size: 22px;
+            padding: 15px 30px;
+            margin-top: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.9);
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); box-shadow: 0 0 20px white; }
+            to { transform: scale(1.1); box-shadow: 0 0 30px white; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Mirror - You Look Gorgeous! 🌸</h1>
+    <p class="compliment" id="compliment">You shine brighter than a thousand stars! ✨</p>
+    
+    <div class="container">
+        <video id="mirror" autoplay></video>
+        <canvas id="captureCanvas" style="display:none;"></canvas>
+        
+        <div class="filter-buttons">
+            <button onclick="applyFilter('brightness(1.2) saturate(1.5)')">Soft Glow</button>
+            <button onclick="applyFilter('hue-rotate(10deg) saturate(1.4)')">Blush</button>
+            <button onclick="applyFilter('contrast(1.4) brightness(1.3)')">Dreamy</button>
+            <button onclick="applyFilter('grayscale(20%) sepia(30%)')">Warm Vintage</button>
+            <button onclick="applyFilter('blur(2px) brightness(1.1)')">Mystic</button>
+            <button onclick="applyFilter('none')">Reset</button>
+        </div>
+        
+        <button id="clickButton" onclick="capturePhoto()">Click 📸</button>
+    </div>
+    
+    <script>
+        const compliments = [
+            "You shine brighter than a thousand stars! ✨",
+            "Your smile could light up the entire world! 😊",
+            "Every moment with you feels like magic! 💖",
+            "You are as unique and beautiful as a dewdrop in the morning sun! 🌿",
+            "Your kindness is the most beautiful thing about you! 🌼",
+            "The world is lucky to have someone as wonderful as you! 🌎",
+            "Your presence makes everything better! 🌟",
+            "You are a breathtaking work of art! 🎨",
+            "Your laughter is the most beautiful sound! 🎶",
+            "You make hearts bloom like spring flowers! 🌸",
+            "Your energy is contagious and uplifting! ⚡",
+            "You bring happiness wherever you go! 🎉",
+            "You radiate positivity and warmth! ☀️",
+            "You are a masterpiece, just as you are! 🖌️",
+            "Your confidence is inspiring! 💪",
+            "You deserve all the love and joy in the world! ❤️",
+            "You sparkle brighter than the stars! ✨",
+            "Your heart is pure and full of love! 💞",
+            "Your beauty is beyond words! 😍",
+            "You are a dream come true! 🌠"
+        ];
+
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(stream => {
+                    document.getElementById('mirror').srcObject = stream;
+                })
+                .catch(error => console.error("Camera access denied!"));
+        }
+
+        function capturePhoto() {
+            const video = document.getElementById('mirror');
+            const canvas = document.getElementById('captureCanvas');
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            
+            const image = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = 'mirror_photo.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            generateCompliment();
+        }
+
+        function generateCompliment() {
+            const newCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+            document.getElementById('compliment').innerText = newCompliment;
+        }
+
+        startCamera();
+    </script>
+</body>
+</html>
